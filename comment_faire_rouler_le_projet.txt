@@ -1,0 +1,8 @@
+Je n'ai pas réussi à respecter l'exigence que le projet roule avec la commande indiqué,
+mais pour que vous puissiez quand même corriger voici les commandes à exécuter dans l'ordre à la racine du projet : 
+
+venv\Scripts\activate
+$env:FLASK_DEBUG = "True"
+$env:FLASK_APP = "inf349"
+flask init-db
+flask run

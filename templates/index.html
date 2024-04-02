@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes List</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        label, input, button {
+            margin-right: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        td:last-child {
+            text-align: center;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Styles pour les boutons de suppression */
+        td button {
+            background-color: #f44336;
+        }
+
+        td button:hover {
+            background-color: #d32f2f;
+        }
+
+        input[type="text"],
+        input[type="number"],input[type=email],
+        button {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-right: 10px;
+        transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,input[type=email],
+        button:focus {
+        outline: none;
+        border-color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <h1>Recipes List</h1>
+    <form action="/order" method="POST">
+        <div style="display:flex; flex-direction: column; text-align: center;">
+            <div>
+                <label for="product_name">Product Name:</label>
+                <input type="text" id="product_name" name="product_name" required>
+                <label for="quantity">Quantity</label>
+                <input type="number" id="quantity" name="quantity" min="1" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div style="margin: 10px 0;">
+                <label for="country">Country:</label>
+                <input type="text" id="country" name="country" required>
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required>
+                <label for="postal_code">Postal Code:</label>
+                <input type="text" id="postal_code" name="postal_code" required>
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" required>
+                <label for="province">Province:</label>
+                <input type="text" id="province" name="province" required>
+            </div>
+            <div><button type="submit">Add</button></div>
+        </div>
+    </form>
+    
+    <table>
+        <tr>
+            <th>Recipe Name</th>
+            <th>Price</th>
+            <th>In stock</th>
+            <th>Action</th>
+        </tr>
+        {% for row in shopping_list %}
+        <tr>
+            <td>{{ row.name }}</td>
+            <td>{{ row.price }}</td>
+            <td>{{ row.in_stock }}</td>
+            <td>
+                <form action="/delete/{{ loop.index0 }}" method="GET">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
